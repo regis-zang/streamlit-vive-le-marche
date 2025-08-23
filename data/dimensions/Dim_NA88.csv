@@ -1,0 +1,89 @@
+﻿COD_NA88;Desc_lbl_fr;Desc_lbl_en;Desc_lbl_pt
+1;Culture et production animale, chasse et services annexes;Culture and animal production, hunting and related services;Cultura e produção animal, caça e serviços relacionados
+2;Sylviculture et exploitation forestière;Forestry and logging;Florestal e madeira
+3;Pêche et aquaculture;Fishing and aquaculture;Pesca e aquicultura
+5;Extraction de houille et de lignite;Coal and lignite extraction;Extração de carvão e linhita
+6;Extraction d'hydrocarbures;Hydrocarbon extraction;Extração de hidrocarbonetos
+7;Extraction de minerais métalliques;Metal mineral extraction;Extração mineral de metal
+8;Autres industries extractives;Other extractive industries;Outras indústrias extrativas
+9;Services de soutien aux industries extractives;Support services for extractive industries;Serviços de suporte para indústrias extrativas
+10;Industries alimentaires;Food industries;Indústrias de alimentos
+11;Fabrication de boissons;Drinks manufacturing;Fabricação de bebidas
+12;Fabrication de produits à base de tabac;Tobacco -based products manufacturing;Fabricação de produtos baseados em tabaco
+13;Fabrication de textiles;Textile manufacturing;Fabricação têxtil
+14;Industrie de l'habillement;Clothing industry;Indústria de roupas
+15;Industrie du cuir et de la chaussure;Leather and shoe industry;Indústria de couro e calçada
+16;Travail du bois et fabrication d'articles en bois et en liège, à l'exception des meubles ;Woodworking and manufacture of wood and cork products, except furniture;Marcenaria e fabricação de produtos de madeira e cortiça, exceto móveis
+17;Industrie du papier et du carton;Paper and cardboard industry;Indústria de papel e papelão
+18;Imprimerie et reproduction d'enregistrements;Printing and reproduction of recordings;Impressão e reprodução de gravações
+19;Cokéfaction et raffinage;Cokecaction and refining;Cokecaction e refino
+20;Industrie chimique;Chemical;Químico
+21;Industrie pharmaceutique;Pharmaceutical industry;Indústria farmacêutica
+22;Fabrication de produits en caoutchouc et en plastique;Manufacturing of rubber and plastic products;Fabricação de produtos de borracha e plástico
+23;Fabrication d'autres produits minéraux non métalliques;Manufacture of other non -metallic mineral products;Fabricação de outros produtos minerais não metálicos
+24;Métallurgie;Metallurgy;Metalurgia
+25;Fabrication de produits métalliques, à l'exception des machines et des équipements;Manufacture of metal products, with the exception of machines and equipment;Fabricação de produtos de metal, com exceção de máquinas e equipamentos
+26;Fabrication de produits informatiques, électroniques et optiques;Manufacturing of IT, electronic and optical products;Fabricação dele, produtos eletrônicos e ópticos
+27;Fabrication d'équipements électriques;Manufacturing of electrical equipment;Fabricação de equipamentos elétricos
+28;Fabrication de machines et équipements n.c.a.;Manufacturing of N.C.A.;Fabricação de N.C.A.
+29;Industrie automobile;Automotive industry;Indústria automotiva
+30;Fabrication d'autres matériels de transport;Manufacture of other transport materials;Fabricação de outros materiais de transporte
+31;Fabrication de meubles;Furniture manufacturing;Fabricação de móveis
+32;Autres industries manufacturières;Other manufacturing industries;Outras indústrias de manufatura
+33;Réparation et installation de machines et d'équipements;Repair and installation of machines and equipment;Reparo e instalação de máquinas e equipamentos
+35;Production et distribution d'électricité, de gaz, de vapeur et d'air conditionné;Production and distribution of electricity, gas, steam and air conditioning;Produção e distribuição de eletricidade, gás, vapor e ar condicionado
+36;Captage, traitement et distribution d'eau;Water capture, treatment and distribution;Captura, tratamento e distribuição de água
+37;Collecte et traitement des eaux usées;Wastewater collection and treatment;Coleta e tratamento de águas residuais
+38;Collecte, traitement et élimination des déchets ;Collection, treatment and disposal of waste;Coleta, tratamento e descarte de resíduos
+39;Dépollution et autres services de gestion des déchets;Depollution and other waste management services;Depollution e outros serviços de gerenciamento de resíduos
+41;Construction de bâtiments;Construction of buildings;Construção de edifícios
+42;Génie civil;Civil engineering;Engenharia Civil
+43;Travaux de construction spécialisés;Specialized construction work;Trabalho de construção especializado
+45;Commerce et réparation d'automobiles et de motocycles;Trade and repair of cars and motorcycles;Comércio e reparo de carros e motocicletas
+46;Commerce de gros, à l'exception des automobiles et des motocycles;Wholesale, with the exception of cars and motorcycles;Atacado, com exceção de carros e motocicletas
+47;Commerce de détail, à l'exception des automobiles et des motocycles;Retail, with the exception of cars and motorcycles;Varejo, com exceção de carros e motocicletas
+49;Transports terrestres et transport par conduites;Land transport and transport by conduct;Transporte terrestre e transporte por conduta
+50;Transports par eau;Water transport;Transporte de água
+51;Transports aériens;Air transport;Transporte aéreo
+52;Entreposage et services auxiliaires des transports;Transport storage and auxiliary services;Transporte de armazenamento e serviços auxiliares
+53;Activités de poste et de courrier;Post and mail activities;Publicar e correio atividades
+55;Hébergement;Accommodation;Alojamento
+56;Restauration;Restoration;Restauração
+58;Édition;Edition;Edição
+59;Production de films cinématographiques, de vidéo et de programmes de télévision ;Production of motion pictures, video and television programs;Produção de filmes, vídeos e programas de televisão
+60;Programmation et diffusion;Programming and distribution;Programação e distribuição
+61;Télécommunications;Telecommunications;Telecomunicações
+62;Programmation, conseil et autres activités informatiques;Programming, advice and other IT activities;Programação, conselhos e outras atividades de TI
+63;Services d'information;Information services;Serviços de informação
+64;Activités des services financiers, hors assurance et caisses de retraite;Activities of financial services, excluding insurance and pension funds;Atividades de serviços financeiros, excluindo fundos de seguro e pensão
+65;Assurance;Insurance;Seguro
+66;Activités auxiliaires de services financiers et d'assurance;Auxiliary financial services and insurance activities;Serviços financeiros auxiliares e atividades de seguro
+68;Activités immobilières;Real estate activities;Atividades imobiliárias
+69;Activités juridiques et comptables;Legal and accounting activities;Atividades legais e contábeis
+70;Activités des sièges sociaux ;Head office activities;Atividades da matriz
+71;Activités d'architecture et d'ingénierie ;Architecture and engineering activities;Atividades de arquitetura e engenharia
+72;Recherche-développement scientifique;Scientific research-development;Desenvolvimento de pesquisa científica
+73;Publicité et études de marché;Advertising and market studies;Publicidade e estudos de mercado
+74;Autres activités spécialisées, scientifiques et techniques;Other specialized, scientific and technical activities;Outras atividades especializadas, científicas e técnicas
+75;Activités vétérinaires;Veterinary activities;Atividades veterinárias
+77;Activités de location et location-bail;Rental and rental-lease activities;Atividades de aluguel e aluguel de aluguel
+78;Activités liées à l'emploi;Employment -related activities;Atividades relacionadas ao emprego
+79;Activités des agences de voyage, voyagistes, services de réservation et activités connexes;Travel agencies, tour operators, reservation services and related activities;Agências de viagens, operadores turísticos, serviços de reserva e atividades relacionadas
+80;Enquêtes et sécurité;Surveys and security;Pesquisas e segurança
+81;Services relatifs aux bâtiments et aménagement paysager;Services relating to buildings and landscaping;Serviços relacionados a edifícios e paisagismo
+82;Activités administratives et autres activités de soutien aux entreprises;Administrative activities and other business support activities;Atividades administrativas e outras atividades de suporte de negócios
+84;Administration publique et défense ;Public administration and defense;Administração pública e defesa
+85;Enseignement;Education;Educação
+86;Activités pour la santé humaine;Human health activities;Atividades de saúde humana
+87;Hébergement médico-social et social;Medico-social and social accommodation;Medico-social e acomodação social
+88;Action sociale sans hébergement;Social action without accommodation;Ação social sem acomodação
+90;Activités créatives, artistiques et de spectacle;Creative, artistic and show activities;Atividades criativas, artísticas e de show
+91;Bibliothèques, archives, musées et autres activités culturelles;Libraries, archives, museums and other cultural activities;Bibliotecas, arquivos, museus e outras atividades culturais
+92;Organisation de jeux de hasard et d'argent;Organization of games of chance and money;Organização de Jogos de Chance e Dinheiro
+93;Activités sportives, récréatives et de loisirs;Sports, recreational and leisure activities;Atividades esportivas, recreativas e de lazer
+94;Activités des organisations associatives;Activities activities;Atividades de atividades
+95;Réparation d'ordinateurs et de biens personnels et domestiques;Compensation for computers and personal and domestic goods;Compensação para computadores e bens pessoais e domésticos
+96;Autres services personnels;Other personal services;Outros serviços pessoais
+97;Activités des ménages en tant qu'employeurs de personnel domestique;Household activities as supporters of domestic personnel;Atividades domésticas como apoiadores do pessoal doméstico
+98;Activités indifférenciées des ménages en tant que producteurs de biens et services pour usage propre;Undifferentiated activities of households as producers of goods and services for clean use;Atividades indiferenciadas das famílias como produtores de bens e serviços para uso limpo
+99;Activités des organisations et organismes extraterritoriaux;Activities of organizations and extraterritorial organizations;Atividades de organizações e organizações extraterritoriais

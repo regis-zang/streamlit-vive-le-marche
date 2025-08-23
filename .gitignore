@@ -216,6 +216,9 @@ data/**/*.csv
 data/**/*.zip
 data/**/*.txt
 
+# --- exceção: manter CSVs das dimensões ---
+!data/dimensions/**/*.csv
+
 # caches e py stuff
 __pycache__/
 .ipynb_checkpoints/
