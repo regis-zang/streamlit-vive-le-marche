@@ -205,3 +205,19 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# só o parquet final entra no repo
+data/**/*.parquet
+!data/fact_vive_le_marche.parquet
+
+# arquivos grandes comuns
+data/**/*.csv
+data/**/*.zip
+data/**/*.txt
+
+# caches e py stuff
+__pycache__/
+.ipynb_checkpoints/
+.env
+.venv
