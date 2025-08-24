@@ -1,4 +1,3 @@
-# src/app_streamlit.py
 from typing import Dict, List, Tuple, Optional
 
 import streamlit as st
@@ -8,7 +7,6 @@ import requests
 from io import BytesIO
 import matplotlib.pyplot as plt
 
-# ====================== CONFIG BÁSICA ======================
 st.set_page_config(page_title="ClairData • Vive le Marché", page_icon="📊", layout="wide")
 
 OWNER  = "regis-zang"
@@ -19,7 +17,6 @@ RAW_BASE = f"https://raw.githubusercontent.com/{OWNER}/{REPO}/{BRANCH}"
 FACT_PARQUET_PATH   = "data/fact_vive_le_marche.parquet"
 DIM_MANIFEST        = "data/dimensions_manifest.json"
 
-# Colunas esperadas (o app tenta se adaptar)
 CAND_YEAR_COLS  = ["ano", "AN", "year", "ANO"]
 CAND_GS_COLS    = ["GS"]
 CAND_NA5_COLS   = ["NA5"]
@@ -29,14 +26,12 @@ CAND_REGLT_COLS = ["REGLT", "REG_LT", "REGION_LT"]
 
 LANG_OPTIONS = {"Português": "pt", "English": "en", "Français": "fr"}
 
-# ====================== HELPERS ======================
 def _get(url: str, stream: bool = False):
     r = requests.get(url, stream=stream, timeout=60)
     r.raise_for_status()
     return r
 
 def raw_url(path: str) -> str:
-    """Normaliza caminhos do Windows para URL raw do GitHub."""
     norm = str(path).replace("\\", "/").lstrip("/")
     return f"{RAW_BASE}/{norm}"
 
@@ -81,7 +76,6 @@ def guess_key_and_label(dim_df: pd.DataFrame, lang_code: str) -> Tuple[Optional[
     label = get_lang_col(dim_df, base, lang_code) or base
     return key, label
 
-# ====================== LOADERS (com cache) ======================
 @st.cache_data(ttl=3600, show_spinner=False)
 def load_fact() -> pd.DataFrame:
     b = BytesIO(_get(raw_url(FACT_PARQUET_PATH), stream=True).content)
@@ -98,7 +92,6 @@ def load_dims_from_manifest() -> Tuple[Dict[str, pd.DataFrame], Dict]:
         dims[name] = pd.read_parquet(b)
     return dims, manifest
 
-# ====================== CARREGAMENTO ======================
 st.title("Vive le Marché – ClairData")
 with st.expander("📦 Fontes de dados (GitHub)"):
     st.write(f"**Fato**: `{FACT_PARQUET_PATH}`")
@@ -113,7 +106,6 @@ except Exception as e:
     st.exception(e)
     st.stop()
 
-# ====================== FILTROS ======================
 st.sidebar.header("Filtros")
 lang_label = st.sidebar.selectbox("Idioma", list(LANG_OPTIONS.keys()), index=0)
 LANG = LANG_OPTIONS[lang_label]
@@ -158,15 +150,12 @@ if not metric:
     st.error("Não encontrei nenhuma coluna numérica para usar como métrica.")
     st.stop()
 
-# ====================== SEÇÕES ======================
 tabs = st.tabs(["📈 Dashboard", "📋 Tabela", "🗺️ Mapas", "💡 Insights"])
 
-# ---- DASHBOARD ----
 with tabs[0]:
     st.subheader("Dashboard")
     c1, c2 = st.columns([1.3, 1])
 
-    # Barras históricas por Ano
     with c1:
         if col_ano in df.columns:
             serie = df.groupby(col_ano, as_index=False)[metric].sum().sort_values(col_ano)
@@ -175,7 +164,6 @@ with tabs[0]:
         else:
             st.info("Sem coluna de Ano para gráfico histórico.")
 
-    # Pizza por GS
     with c2:
         if col_gs in df.columns:
             top = df.groupby(col_gs, as_index=False)[metric].sum().sort_values(metric, ascending=False)
@@ -198,7 +186,6 @@ with tabs[0]:
         else:
             st.info("Coluna GS não encontrada para gráfico de pizza.")
 
-    # Barras horizontais de NA88
     st.markdown("---")
     if col_na88 in df.columns:
         top88 = df.groupby(col_na88, as_index=False)[metric].sum().sort_values(metric, ascending=False).head(20)
@@ -207,15 +194,12 @@ with tabs[0]:
     else:
         st.info("Coluna NA88 não encontrada para gráfico horizontal.")
 
-# ---- TABELA ----
 with tabs[1]:
     st.subheader("Tabela (fato filtrado)")
     st.dataframe(df, use_container_width=True, height=520)
 
-# ---- MAPAS ----
 with tabs[2]:
     st.subheader("Mapa – bolhas por REGLT")
-
     reglt_dim = dims.get("Dim_REGLT") or dims.get("Dim_REGLT".lower()) or dims.get("Dim_REGLT".upper())
     if reglt_dim is None or col_reglt not in df.columns:
         st.info("Para o mapa, preciso da coluna REGLT no fato e da dimensão 'Dim_REGLT' com latitude/longitude.")
@@ -242,7 +226,6 @@ with tabs[2]:
                 st.dataframe(m[show_cols].sort_values(metric, ascending=False).head(50),
                              use_container_width=True, height=380)
 
-# ---- INSIGHTS ----
 with tabs[3]:
     st.subheader("Insights estatísticos")
     if df.empty:
