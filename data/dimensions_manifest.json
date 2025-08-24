@@ -1,0 +1,527 @@
+{
+  "source": "data\\dimensions",
+  "output": "data\\dimensions_parquet",
+  "tables": [
+    {
+      "name": "Dim_AGED",
+      "csv_file": "data\\dimensions\\Dim_AGED.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_AGED.parquet",
+      "n_rows": 97,
+      "n_cols": 4,
+      "columns": [
+        "COD_AGED",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "3068a3ae73d619b59b410248ee2933af"
+    },
+    {
+      "name": "Dim_AGEREV",
+      "csv_file": "data\\dimensions\\Dim_AGEREV.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_AGEREV.parquet",
+      "n_rows": 96,
+      "n_cols": 4,
+      "columns": [
+        "COD_AGEREV",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "fdbce22a915513cb067d42d6a7255627"
+    },
+    {
+      "name": "Dim_AGEREVQ",
+      "csv_file": "data\\dimensions\\Dim_AGEREVQ.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_AGEREVQ.parquet",
+      "n_rows": 21,
+      "n_cols": 4,
+      "columns": [
+        "COD_AGEREVQ",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "9b6b527183d062f6c1129ab859dfc4d5"
+    },
+    {
+      "name": "Dim_ANAI",
+      "csv_file": "data\\dimensions\\Dim_ANAI.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_ANAI.parquet",
+      "n_rows": 100,
+      "n_cols": 4,
+      "columns": [
+        "COD_ANAI",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "16f30486c00df53c2259373fadf6e515"
+    },
+    {
+      "name": "Dim_CS",
+      "csv_file": "data\\dimensions\\Dim_CS.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_CS.parquet",
+      "n_rows": 29,
+      "n_cols": 4,
+      "columns": [
+        "COD_CS",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "0a97a041cd3010d334e54729dd3d2915"
+    },
+    {
+      "name": "Dim_DIPL",
+      "csv_file": "data\\dimensions\\Dim_DIPL.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_DIPL.parquet",
+      "n_rows": 12,
+      "n_cols": 4,
+      "columns": [
+        "COD_DIPL",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "60522a5445a5c6ea89f518fd7924aa23"
+    },
+    {
+      "name": "Dim_EMPL",
+      "csv_file": "data\\dimensions\\Dim_EMPL.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_EMPL.parquet",
+      "n_rows": 9,
+      "n_cols": 4,
+      "columns": [
+        "COD_EMPL",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "73bc418ce7eaf7ab41d2a24b558bfada"
+    },
+    {
+      "name": "Dim_GS",
+      "csv_file": "data\\dimensions\\Dim_GS.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_GS.parquet",
+      "n_rows": 6,
+      "n_cols": 4,
+      "columns": [
+        "COD_GS",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "c15165a4777b416e396ee89822a62a2c"
+    },
+    {
+      "name": "Dim_ILETUDLT",
+      "csv_file": "data\\dimensions\\Dim_ILETUDLT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_ILETUDLT.parquet",
+      "n_rows": 8,
+      "n_cols": 4,
+      "columns": [
+        "COD_ILETUDLT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "f60f6f31841e0415a69cc0921ee037e5"
+    },
+    {
+      "name": "Dim_ILRLT",
+      "csv_file": "data\\dimensions\\Dim_ILRLT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_ILRLT.parquet",
+      "n_rows": 5,
+      "n_cols": 4,
+      "columns": [
+        "COD_ILRLT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "f875003168ecb5d865e343ee85ca7a96"
+    },
+    {
+      "name": "Dim_IPONDI",
+      "csv_file": "data\\dimensions\\Dim_IPONDI.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_IPONDI.parquet",
+      "n_rows": 1,
+      "n_cols": 4,
+      "columns": [
+        "COD_IPONDI",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "fb06ff341703e5fc2a2713231bb3776d"
+    },
+    {
+      "name": "Dim_IRANLT",
+      "csv_file": "data\\dimensions\\Dim_IRANLT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_IRANLT.parquet",
+      "n_rows": 7,
+      "n_cols": 4,
+      "columns": [
+        "COD_IRANLT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "405660023d4860dbbd1cc02dd6fd071f"
+    },
+    {
+      "name": "Dim_METRODOMLT",
+      "csv_file": "data\\dimensions\\Dim_METRODOMLT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_METRODOMLT.parquet",
+      "n_rows": 2,
+      "n_cols": 4,
+      "columns": [
+        "COD_METRODOMLT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "9c3299fd2a0a0baa8485dc22224001c7"
+    },
+    {
+      "name": "Dim_NA10",
+      "csv_file": "data\\dimensions\\Dim_NA10.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_NA10.parquet",
+      "n_rows": 10,
+      "n_cols": 4,
+      "columns": [
+        "COD_NA10",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "7862e6b1cf4be949efcaccd5eebc2530"
+    },
+    {
+      "name": "Dim_NA17",
+      "csv_file": "data\\dimensions\\Dim_NA17.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_NA17.parquet",
+      "n_rows": 17,
+      "n_cols": 4,
+      "columns": [
+        "COD_NA17",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "efee2fa68e80f83786733f72f537abd5"
+    },
+    {
+      "name": "Dim_NA38",
+      "csv_file": "data\\dimensions\\Dim_NA38.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_NA38.parquet",
+      "n_rows": 38,
+      "n_cols": 4,
+      "columns": [
+        "COD_NA38",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "5112ccd0c01fe36f11079875410a8a6e"
+    },
+    {
+      "name": "Dim_NA5",
+      "csv_file": "data\\dimensions\\Dim_NA5.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_NA5.parquet",
+      "n_rows": 5,
+      "n_cols": 4,
+      "columns": [
+        "COD_NA5",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "a06df1e4b7b3291e6434d467fd75928c"
+    },
+    {
+      "name": "Dim_NA64",
+      "csv_file": "data\\dimensions\\Dim_NA64.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_NA64.parquet",
+      "n_rows": 64,
+      "n_cols": 4,
+      "columns": [
+        "COD_NA64",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "adf4f15719f26e71e43047f6b95b0300"
+    },
+    {
+      "name": "Dim_NA88",
+      "csv_file": "data\\dimensions\\Dim_NA88.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_NA88.parquet",
+      "n_rows": 88,
+      "n_cols": 4,
+      "columns": [
+        "COD_NA88",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "5fb70b3340adfc502f446f9c82212365"
+    },
+    {
+      "name": "Dim_REGLT",
+      "csv_file": "data\\dimensions\\Dim_REGLT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_REGLT.parquet",
+      "n_rows": 17,
+      "n_cols": 4,
+      "columns": [
+        "COD_REGLT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "73b995d54de7b6df311c44b7a3d6fbf6"
+    },
+    {
+      "name": "Dim_SEXE",
+      "csv_file": "data\\dimensions\\Dim_SEXE.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_SEXE.parquet",
+      "n_rows": 2,
+      "n_cols": 4,
+      "columns": [
+        "COD_SEXE",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "38fd4a11051e178857c5030a33732979"
+    },
+    {
+      "name": "Dim_STAT",
+      "csv_file": "data\\dimensions\\Dim_STAT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_STAT.parquet",
+      "n_rows": 4,
+      "n_cols": 4,
+      "columns": [
+        "COD_STAT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "ef3734a4a8b7c723f4b421db42e83b5d"
+    },
+    {
+      "name": "Dim_TACTD16",
+      "csv_file": "data\\dimensions\\Dim_TACTD16.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_TACTD16.parquet",
+      "n_rows": 6,
+      "n_cols": 4,
+      "columns": [
+        "COD_TACTD16",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "f0a82f3c0479d48be528471afcce4b84"
+    },
+    {
+      "name": "Dim_TP",
+      "csv_file": "data\\dimensions\\Dim_TP.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_TP.parquet",
+      "n_rows": 2,
+      "n_cols": 4,
+      "columns": [
+        "COD_TP",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "b8344f0069231e9fdb4ecdd4d5d85bae"
+    },
+    {
+      "name": "Dim_TRANS",
+      "csv_file": "data\\dimensions\\Dim_TRANS.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_TRANS.parquet",
+      "n_rows": 6,
+      "n_cols": 4,
+      "columns": [
+        "COD_TRANS",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "edb660fbd9cf5b1618ce546ab23a46b7"
+    },
+    {
+      "name": "Dim_ZELT",
+      "csv_file": "data\\dimensions\\Dim_ZELT.csv",
+      "parquet_file": "data\\dimensions_parquet\\Dim_ZELT.parquet",
+      "n_rows": 305,
+      "n_cols": 4,
+      "columns": [
+        "COD_ZELT",
+        "Desc_lbl_fr",
+        "Desc_lbl_en",
+        "Desc_lbl_pt"
+      ],
+      "languages_detected": [
+        "en",
+        "fr",
+        "pt"
+      ],
+      "compression": "zstd",
+      "md5": "ad68dd94c0156f9291c3683c4b08cfa5"
+    }
+  ],
+  "total_rows": 957
+}

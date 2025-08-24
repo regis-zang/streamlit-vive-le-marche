@@ -2,8 +2,8 @@ streamlit==1.48.1
 pandas
 numpy
 plotly
-scikit-learn
 matplotlib
+scikit-learn
 python-dotenv
 requests
 pyarrow
