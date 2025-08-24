@@ -1,20 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Converte dimensões CSV (três idiomas) para Parquet e gera manifest.
+Converte dimensões CSV (três idiomas) para Parquet e gera manifest (paths POSIX).
 Uso:
     python tools/convert_dims_to_parquet.py
 Requisitos:
-    pandas, pyarrow, chardet (opcional), python-slugify (opcional)
+    pandas, pyarrow, (opcional: chardet)
 """
-
-import json, re, hashlib, sys
+import json, re, hashlib, sys, csv
 from pathlib import Path
 from io import StringIO
 import pandas as pd
 
 try:
-    import chardet  # melhora detecção de encoding; opcional
+    import chardet  # opcional, melhora detecção de encoding
 except Exception:
     chardet = None
 
@@ -32,39 +31,35 @@ LANG_SUFFIXES = {
     "en": ["_en", "_eng"],
     "fr": ["_fr", "_fra", "_fre"],
 }
-# regex compilado para pegar idioma por sufixo
-LANG_RE = re.compile(r"(.+?)(" + "|".join([re.escape(s) for v in LANG_SUFFIXES.values() for s in v]) + r")$", re.IGNORECASE)
+LANG_RE = re.compile(
+    r"(.+?)(" + "|".join([re.escape(s) for v in LANG_SUFFIXES.values() for s in v]) + r")$",
+    re.IGNORECASE
+)
 
 def detect_encoding(sample: bytes) -> str:
     if chardet:
         res = chardet.detect(sample)
         enc = (res.get("encoding") or "utf-8").lower()
-        # normaliza BOM
-        if enc in ("utf-8-sig", "utf_8_sig"):
-            return "utf-8-sig"
-        return enc
+        return "utf-8-sig" if enc in ("utf-8-sig", "utf_8_sig") else enc
     return "utf-8-sig"
 
 def sniff_delimiter(text: str) -> str:
-    # tenta csv.Sniffer, senão heurística simples
-    import csv
     try:
         dialect = csv.Sniffer().sniff(text[:2000], delimiters=",;|\t")
         return dialect.delimiter
     except Exception:
-        # heurística por contagem
         counts = {d: text.count(d) for d in [",",";","|","\t"]}
         return max(counts, key=counts.get)
 
 def normalize_col(col: str) -> str:
     c = col.strip()
     c = re.sub(r"\s+", "_", c)
-    c = c.replace("–", "-").replace("—","-")
+    c = c.replace("–", "-").replace("—", "-")
     c = re.sub(r"[^\w\-\.]", "_", c, flags=re.UNICODE)
     c = re.sub(r"_+", "_", c).strip("_")
     return c
 
-def detect_languages(cols):
+def detect_languages(cols) -> list[str]:
     langs = set()
     for c in cols:
         m = LANG_RE.match(c.lower())
@@ -81,18 +76,18 @@ def md5_bytes(b: bytes) -> str:
     return h.hexdigest()
 
 def coerce_numeric(df: pd.DataFrame) -> pd.DataFrame:
-    # tenta converter colunas com >80% valores numéricos
     for c in df.columns:
         s = df[c]
         if s.dtype.kind in "biufc":
             continue
-        # amostra
-        sample = s.dropna().astype(str).str.replace(".", "", regex=False)\
-                                       .str.replace(",", ".", regex=False)\
-                                       .str.replace(" ", "", regex=False)
+        sample = (
+            s.dropna().astype(str)
+             .str.replace(".", "", regex=False)
+             .str.replace(",", ".", regex=False)
+             .str.replace(" ", "", regex=False)
+        )
         if len(sample) == 0:
             continue
-        # porcentagem que vira número
         ok = pd.to_numeric(sample, errors="coerce").notna().mean()
         if ok >= 0.8:
             df[c] = pd.to_numeric(sample, errors="coerce")
@@ -104,14 +99,10 @@ def read_csv_safely(path: Path) -> pd.DataFrame:
     text = raw.decode(enc, errors="replace")
     delim = sniff_delimiter(text)
     df = pd.read_csv(StringIO(text), sep=delim, encoding=enc, dtype=str, keep_default_na=True)
-    # normaliza colunas mantendo sufixos de idioma
     df.columns = [normalize_col(c) for c in df.columns]
-    # tenta tipar números com segurança
-    df = coerce_numeric(df)
-    return df
+    return coerce_numeric(df)
 
 def write_parquet(df: pd.DataFrame, out_path: Path) -> str:
-    # compressão preferida
     compression = "zstd"
     try:
         df.to_parquet(out_path, index=False, engine="pyarrow", compression=compression)
@@ -126,8 +117,9 @@ def main():
         sys.exit(1)
 
     manifest = {
-        "source": str(IN_DIR.relative_to(ROOT)),
-        "output": str(OUT_DIR.relative_to(ROOT)),
+        # paths POSIX para evitar "\" no JSON
+        "source": (IN_DIR.relative_to(ROOT)).as_posix(),
+        "output": (OUT_DIR.relative_to(ROOT)).as_posix(),
         "tables": []
     }
 
@@ -142,26 +134,27 @@ def main():
         rows, cols = df.shape
         total_rows += rows
 
-        # detecta idiomas pelos sufixos nos nomes das colunas
         langs = detect_languages(df.columns)
-
-        out_path = OUT_DIR / (csv_path.stem + ".parquet")
+        out_path = OUT_DIR / f"{csv_path.stem}.parquet"
         comp = write_parquet(df, out_path)
         md5 = md5_bytes(out_path.read_bytes())
 
         manifest["tables"].append({
             "name": csv_path.stem,
-            "csv_file": str(csv_path.relative_to(ROOT)),
-            "parquet_file": str(out_path.relative_to(ROOT)),
+            "csv_file": (csv_path.relative_to(ROOT)).as_posix(),                 # POSIX
+            "parquet_file": (out_path.relative_to(ROOT)).as_posix(),             # POSIX
             "n_rows": int(rows),
             "n_cols": int(cols),
             "columns": list(df.columns),
-            "languages_detected": langs,  # ex.: ["pt","en","fr"]
+            "languages_detected": langs,
             "compression": comp,
             "md5": md5
         })
 
+    # ordena por nome para estabilidade do diff
+    manifest["tables"] = sorted(manifest["tables"], key=lambda t: t["name"].lower())
     manifest["total_rows"] = total_rows
+
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nOK ✓ Parquet em {OUT_DIR}")
     print(f"OK ✓ Manifest gerado em {MANIFEST}")
