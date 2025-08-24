@@ -1,9 +1,13 @@
+# src/app_streamlit.py
+from typing import Dict, List, Tuple, Optional
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
 from io import BytesIO
 import json
+import matplotlib.pyplot as plt
 
 # ====================== CONFIG BÁSICA ======================
 st.set_page_config(page_title="ClairData • Vive le Marché", page_icon="📊", layout="wide")
@@ -17,17 +21,17 @@ FACT_PARQUET_PATH   = "data/fact_vive_le_marche.parquet"
 DIM_MANIFEST        = "data/dimensions_manifest.json"
 
 # Colunas esperadas (nomes prováveis). O app tenta se adaptar.
-CAND_YEAR_COLS = ["ano", "AN", "year", "ANO"]
-CAND_GS_COLS   = ["GS"]
-CAND_NA5_COLS  = ["NA5"]
-CAND_NA10_COLS = ["NA10"]
-CAND_NA88_COLS = ["NA88"]
-CAND_REGLT_COLS= ["REGLT", "REG_LT", "REGION_LT"]
+CAND_YEAR_COLS  = ["ano", "AN", "year", "ANO"]
+CAND_GS_COLS    = ["GS"]
+CAND_NA5_COLS   = ["NA5"]
+CAND_NA10_COLS  = ["NA10"]
+CAND_NA88_COLS  = ["NA88"]
+CAND_REGLT_COLS = ["REGLT", "REG_LT", "REGION_LT"]
 
 LANG_OPTIONS = {"Português": "pt", "English": "en", "Français": "fr"}
 
 # ====================== HELPERS HTTP/CACHE ======================
-def _get(url, stream=False):
+def _get(url: str, stream: bool = False):
     r = requests.get(url, stream=stream, timeout=60)
     r.raise_for_status()
     return r
@@ -39,10 +43,10 @@ def load_fact() -> pd.DataFrame:
     return pd.read_parquet(b)
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_dims_from_manifest() -> tuple[dict, dict]:
+def load_dims_from_manifest() -> Tuple[Dict, Dict]:
     man_url = f"{RAW_BASE}/{DIM_MANIFEST}"
     manifest = _get(man_url).json()
-    dims = {}
+    dims: Dict[str, pd.DataFrame] = {}
     for t in manifest.get("tables", []):
         name = t["name"]
         pq_file = t["parquet_file"]
@@ -51,7 +55,7 @@ def load_dims_from_manifest() -> tuple[dict, dict]:
         dims[name] = pd.read_parquet(b)
     return dims, manifest
 
-def first_present(df_cols, candidates):
+def first_present(df_cols: pd.Index, candidates: List[str]) -> Optional[str]:
     for c in candidates:
         if c in df_cols:
             return c
@@ -62,17 +66,17 @@ def first_present(df_cols, candidates):
             return lower[c.lower()]
     return None
 
-def pick_numeric_metric(df: pd.DataFrame):
+def pick_numeric_metric(df: pd.DataFrame) -> Optional[str]:
     for c in df.columns:
         if pd.api.types.is_numeric_dtype(df[c]):
             return c
     return None
 
-def get_lang_col(df: pd.DataFrame, base_col: str, lang_code: str):
+def get_lang_col(df: pd.DataFrame, base_col: Optional[str], lang_code: str) -> Optional[str]:
     """
     Dado um dataframe de dimensão e um "base_col" (ex.: 'GS_DESC'),
-    tenta retornar a coluna com sufixo de idioma (ex.: 'GS_DESC_pt', '_en', '_fr').
-    Se não existir, devolve a base_col se presente, senão None.
+    retorna a coluna com sufixo de idioma (ex.: 'GS_DESC_pt', '_en', '_fr').
+    Se não existir, devolve a base_col se presente; senão None.
     """
     if base_col is None:
         return None
@@ -82,7 +86,7 @@ def get_lang_col(df: pd.DataFrame, base_col: str, lang_code: str):
             return c
     if base_col in df.columns:
         return base_col
-    # varre alternativas com regex
+    # varre alternativas case-insensitive
     suffixes = [f"_{lang_code}", f"_{lang_code.upper()}"]
     for c in df.columns:
         for s in suffixes:
@@ -90,7 +94,7 @@ def get_lang_col(df: pd.DataFrame, base_col: str, lang_code: str):
                 return c
     return None
 
-def guess_key_and_label(dim_df: pd.DataFrame, lang_code: str):
+def guess_key_and_label(dim_df: pd.DataFrame, lang_code: str) -> Tuple[Optional[str], Optional[str]]:
     """
     Heurística: supõe que a 1ª coluna seja chave (id) e a 2ª alguma descrição.
     Depois tenta achar versões com sufixo de idioma.
@@ -100,7 +104,7 @@ def guess_key_and_label(dim_df: pd.DataFrame, lang_code: str):
         return None, None
     key = cols[0]
     # tenta achar uma coluna *_DESC ou *_NAME como base
-    base = None
+    base: Optional[str] = None
     for c in cols[1:]:
         if any(x in c.lower() for x in ["desc", "name", "label", "lib", "nom"]):
             base = c
@@ -110,7 +114,7 @@ def guess_key_and_label(dim_df: pd.DataFrame, lang_code: str):
     label = get_lang_col(dim_df, base, lang_code) or base
     return key, label
 
-def ensure_cols(df: pd.DataFrame, names: list[str]) -> list[str]:
+def ensure_cols(df: pd.DataFrame, names: List[str]) -> List[str]:
     return [c for c in names if c in df.columns]
 
 # ====================== CARREGAMENTO DE DADOS ======================
@@ -137,12 +141,12 @@ lang_label = st.sidebar.selectbox("Idioma", list(LANG_OPTIONS.keys()), index=0)
 LANG = LANG_OPTIONS[lang_label]
 
 # Descobrir colunas
-col_ano  = first_present(fact.columns, CAND_YEAR_COLS)
-col_gs   = first_present(fact.columns, CAND_GS_COLS)
-col_na5  = first_present(fact.columns, CAND_NA5_COLS)
-col_na10 = first_present(fact.columns, CAND_NA10_COLS)
-col_na88 = first_present(fact.columns, CAND_NA88_COLS)
-col_reglt= first_present(fact.columns, CAND_REGLT_COLS)
+col_ano   = first_present(fact.columns, CAND_YEAR_COLS)
+col_gs    = first_present(fact.columns, CAND_GS_COLS)
+col_na5   = first_present(fact.columns, CAND_NA5_COLS)
+col_na10  = first_present(fact.columns, CAND_NA10_COLS)
+col_na88  = first_present(fact.columns, CAND_NA88_COLS)
+col_reglt = first_present(fact.columns, CAND_REGLT_COLS)
 
 if col_ano is None:
     st.warning("Coluna de Ano não encontrada (candidatas: ANO/AN/year). Alguns gráficos podem ficar indisponíveis.")
@@ -152,10 +156,11 @@ anos = sorted(fact[col_ano].dropna().unique().tolist()) if col_ano in fact.colum
 sel_anos = st.sidebar.multiselect("Ano", anos, default=anos[-3:] if anos else [])
 
 # Filtro GS / NA5 / NA10
-def multiselect_for(colname: str, title: str):
+def multiselect_for(colname: Optional[str], title: str) -> List:
     if colname and colname in fact.columns:
         vals = sorted(pd.Series(fact[colname].dropna().unique()).tolist())
-        return st.sidebar.multiselect(title, vals, default=vals if len(vals) <= 10 else vals[:10])
+        default_vals = vals if len(vals) <= 10 else vals[:10]
+        return st.sidebar.multiselect(title, vals, default=default_vals)
     return []
 
 sel_gs   = multiselect_for(col_gs,   "GS")
@@ -188,6 +193,7 @@ with tabs[0]:
     st.subheader("Dashboard")
 
     c1, c2 = st.columns([1.3, 1])
+
     # Barras históricas por Ano
     with c1:
         if col_ano in df.columns:
@@ -213,7 +219,11 @@ with tabs[0]:
             else:
                 top["label"] = top[col_gs].astype(str)
             st.markdown("**Distribuição por GS**")
-            st.pyplot(pd.Series(top.set_index("label")[metric]).plot(kind="pie", autopct="%1.1f%%").get_figure())
+            fig, ax = plt.subplots()
+            pd.Series(top.set_index("label")[metric]).plot(kind="pie", autopct="%1.1f%%", ax=ax)
+            ax.set_ylabel("")
+            st.pyplot(fig)
+            plt.close(fig)
         else:
             st.info("Coluna GS não encontrada para gráfico de pizza.")
 
@@ -248,19 +258,21 @@ with tabs[2]:
         else:
             agg = df.groupby(col_reglt, as_index=False)[metric].sum()
             key, label = guess_key_and_label(reglt_dim, LANG)
-            labcol = label if label in reglt_dim.columns else None
-            m = agg.merge(reglt_dim, left_on=col_reglt, right_on=key if key else col_reglt, how="left")
+            labcol = label if (label and label in reglt_dim.columns) else None
+            join_key = key if key else col_reglt
+            m = agg.merge(reglt_dim, left_on=col_reglt, right_on=join_key, how="left")
             m = m.dropna(subset=[cand_lat, cand_lon])
             if m.empty:
                 st.info("Sem coordenadas para plotar no mapa após o join.")
             else:
-                st.map(m.rename(columns={cand_lat: "lat", cand_lon: "lon"})[["lat","lon"]])
+                m = m.rename(columns={cand_lat: "lat", cand_lon: "lon"})
+                st.map(m[["lat","lon"]])
 
                 # tabela auxiliar
                 show_cols = [col_reglt, metric, "lat", "lon"]
-                if labcol and labcol in m.columns: 
+                if labcol and labcol in m.columns:
                     show_cols.insert(1, labcol)
-                st.dataframe(m.rename(columns={cand_lat: "lat", cand_lon: "lon"})[show_cols].sort_values(metric, ascending=False).head(50),
+                st.dataframe(m[show_cols].sort_values(metric, ascending=False).head(50),
                              use_container_width=True, height=380)
 
 # ---------------------- INSIGHTS ----------------------
@@ -283,7 +295,10 @@ with tabs[3]:
         c1, c2, c3, c4 = st.columns(4)
         for i, (k, v) in enumerate(kpis.items()):
             with [c1, c2, c3, c4][i % 4]:
-                st.metric(k, f"{v:,.2f}" if isinstance(v, (int, float, np.floating)) else f"{v}")
+                if isinstance(v, (int, float, np.floating)):
+                    st.metric(k, f"{v:,.2f}")
+                else:
+                    st.metric(k, f"{v}")
 
         st.markdown("---")
         st.write("**Top contribuintes (por NA10, se existir)**")
