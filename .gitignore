@@ -205,11 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
-
 # só o parquet final entra no repo
 data/**/*.parquet
 !data/fact_vive_le_marche.parquet
+!data/dimensions_parquet/*.parquet    # ✅ incluir dimensões em parquet
+!data/dimensions_manifest.json        # ✅ incluir manifesto
 
 # arquivos grandes comuns
 data/**/*.csv
